@@ -39,10 +39,12 @@
 </script>
 
 <div class="chartstandard schema1">
-    <h2>{sensorName}</h2>
+
+    <h2 style:color={color}>{sensorName}</h2>
     {#if data.lowbattery}
       <div class='lowbattery'>Batterie bald leer</div>
     {/if}
+
     <div class='value'>
       <div class='big' style:color={color}>{data.measurements[0]['_value']}</div>
       <div class='right'>

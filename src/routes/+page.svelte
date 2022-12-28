@@ -162,7 +162,6 @@
 		}
 		else if(document.cookie != '')
 		{
-			console.log(document.cookie)
 			var cookies:any = parseCookie(document.cookie);
 			if('sensors' in cookies)
 			{
@@ -175,8 +174,8 @@
 </script>
 
 <svelte:head>
-	<title>Home</title>
-	<meta name="description" content="Svelte demo app" />
+	<title>Meine Sensoren</title>
+	<meta name="description" content="Mobile Alerts Sensoren" />
 </svelte:head>
 
 <section>

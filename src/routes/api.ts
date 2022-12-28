@@ -2,6 +2,10 @@ import MD5 from "crypto-js/md5";
 
 export const fetchApi = (sensors: string[]) => {
 
+  console.log("Fetch", sensors)
+  const url:string = 'https://us-central1-mobilealerts-372415.cloudfunctions.net/apiproxy'
+  // const url:string = 'http://127.0.0.1:8080/'
+
   const headers:any = {
     'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
     'User-Agent': 'Dalvik/2.1.0 (Linux; U; Android 6.0; Android SDK built for x86 Build/MASTER)',
@@ -27,7 +31,7 @@ const payload_token:any = {
     'usemm':            'true',
     'speedunit':        '0',
     'ccon':             'false',
-    'timestamp':        '1672171159',
+    'timestamp':        Math.floor(Date.now() / 1000),
   }
 
   // Calculate AccessToken
@@ -47,23 +51,20 @@ const payload_token:any = {
 
 
   const payload_untoken:any = {
-    'requesttoken': MD5(token).toString(),
-    'deviceids':         '0301548CBC4A,',
+    'requesttoken':      MD5(token).toString(),
+    'deviceids':         sensors.join(',') + ',',
     'measurementfrom':  '0',
     'measurementcount': '50'
   }
 
   const payload = {...payload_token, ...payload_untoken}
 
-  fetch('https://www.data199.com/api/v1/dashboard', {
+  return fetch(url, {
     method: 'POST',
     headers: headers,
     body: JSON.stringify(payload)
   })
-  .then(response => response.json())
-  .then(response => console.log(JSON.stringify(response)))
-  .catch(e => console.log(e))
-  
+ 
 
 
 }

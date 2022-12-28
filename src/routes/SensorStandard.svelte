@@ -38,7 +38,7 @@
 
 </script>
 
-<div class="chartstandard schema1">
+<div class="chartstandard">
 
     <h2 style:color={color}>{sensorName}</h2>
     {#if data.lowbattery}
@@ -68,7 +68,6 @@
 	.chartstandard {
     max-width: 100vw;
     width: 400px;
-    /* border: 1px solid rgb(194, 194, 194); */
     border-radius: 15px;
     padding: 15px;
     background-color: white;
@@ -82,7 +81,6 @@
     font-weight: 300;
     padding: 0;
     margin: 0;
-    /* margin: 0 0 10px; */
   }
 
   .lowbattery

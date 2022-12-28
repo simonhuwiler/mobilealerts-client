@@ -26,7 +26,7 @@
   }
 </script>
 
-<div class="addsensor schema1">
+<div class="addsensor">
 
   {#if state == 0}
 
@@ -50,7 +50,11 @@
       <p>
         Der Sensor wurde hinzugefügt. Die aktuelle Konfiguration wurde in Deinen Cookies gespeichert. Um diese Ansicht zu teilen, kopiere die angepasste URL oder setze sie als Lesezeichen.
       </p>
-      <button class="button-6" style='left:50%;transform:translateX(-50%)' on:click={() => state = 1}>Weiteren Sensor hinzufügen</button>
+      <button class="button-6" style='left:50%;transform:translateX(-50%)' on:click={() => {
+        sensorID = ''
+        sensorName = ''
+        state = 1
+        }}>Weiteren Sensor hinzufügen</button>
     </div>
 
   {/if}

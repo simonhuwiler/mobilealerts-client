@@ -48,7 +48,7 @@ const payload_token:any = {
 
   const payload_untoken:any = {
     'requesttoken': MD5(token).toString(),
-    'deviceids':         'XXX,',
+    'deviceids':         '0301548CBC4A,',
     'measurementfrom':  '0',
     'measurementcount': '50'
   }

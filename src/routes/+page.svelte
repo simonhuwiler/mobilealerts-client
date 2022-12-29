@@ -65,6 +65,7 @@
 				fetchApi(userSensors.map(v => v.sensorID))
 				  .then(response => response.json())
   				.then(response => {
+						console.log(response)
 
 						// Calculate, how many "sensors" we have (a sensor with temperature and humidity combined equals two sensors)
 						// We go quick and dirty, what kind of sensor it is, we just look for "t1", "t2" or "h" in measurement data

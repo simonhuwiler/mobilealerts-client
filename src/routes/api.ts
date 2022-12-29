@@ -3,8 +3,7 @@ import MD5 from "crypto-js/md5";
 export const fetchApi = (sensors: string[]) => {
 
   console.log("Fetch", sensors)
-  const url:string = 'https://us-central1-mobilealerts-372415.cloudfunctions.net/apiproxy'
-  // const url:string = 'http://127.0.0.1:8080/'
+  const url:string = '/api'
 
   const headers:any = {
     'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',

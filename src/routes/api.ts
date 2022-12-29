@@ -2,7 +2,6 @@ import MD5 from "crypto-js/md5";
 
 export const fetchApi = (sensors: string[]) => {
 
-  console.log("Fetch", sensors)
   const url:string = '/api'
 
   const headers:any = {

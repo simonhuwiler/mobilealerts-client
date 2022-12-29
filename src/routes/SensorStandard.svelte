@@ -38,7 +38,7 @@
 
 </script>
 
-<div class="chartstandard">
+<div class="chartstandard box">
 
     <h2 style:color={color}>{sensorName}</h2>
     {#if data.lowbattery}
@@ -65,23 +65,6 @@
 </div>
 
 <style>
-	.chartstandard {
-    max-width: 100vw;
-    width: 400px;
-    border-radius: 15px;
-    padding: 15px;
-    background-color: white;
-    box-shadow: 0px 0px 15px 10px rgba(0,0,0,0.05);
-    display: block;
-	}
-
-
-  h2
-  {
-    font-weight: 300;
-    padding: 0;
-    margin: 0;
-  }
 
   .lowbattery
   {

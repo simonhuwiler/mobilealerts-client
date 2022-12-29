@@ -26,7 +26,7 @@
   }
 </script>
 
-<div class="addsensor">
+<div class="addsensor box">
 
   {#if state == 0}
 
@@ -63,14 +63,7 @@
 
 <style>
 	.addsensor {
-    max-width: 100vw;
-    width: 400px;
-    /* border: 1px solid rgb(194, 194, 194); */
-    border-radius: 15px;
-    padding: 15px;
     background-color: rgb(253, 249, 249);
-    box-shadow: 0px 0px 15px 10px rgba(0,0,0,0.05);
-    display: block;
 	}
 
   h2
@@ -80,16 +73,6 @@
     margin: 0;
     /* margin: 0 0 10px; */
     color: grey;
-  }
-
-  p
-  {
-    font-size: 14px;
-  }
-
-  a, a:visited, a:active
-  {
-    color: black;
   }
 
   input

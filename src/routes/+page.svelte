@@ -9,22 +9,10 @@
 	import SensorStandard from './SensorStandard.svelte';
 	import AddSensor from './AddSensor.svelte';
 	import Loading from './Loading.svelte';
-
-	// import { data } from '$lib/data.js'
+	import Welcome from './Welcome.svelte'
 
 	var sensorData:any[] = []
 	var loadingInProgress:boolean = false
-
-	// Tests
-	// var dataTemperature = JSON.parse(JSON.stringify(data))
-	// dataTemperature.measurements = dataTemperature.measurements.map(e => {
-	// 	return {...e, '_value': e['t1']}
-	// })
-	
-	// var dataHumidity = JSON.parse(JSON.stringify(data))
-	// dataHumidity.measurements = dataTemperature.measurements.map(e => {
-	// 	return {...e, '_value': e['h']}
-	// })
 
 	// Define Colors
 	const highlightColors = ['#ff6f10', '#3b910a', '#36389c', '#0083a3']
@@ -129,6 +117,7 @@
 					})
 					.then(() => loadingInProgress = false)
 			}
+			
 		});
 
 		// Get Cookies
@@ -191,6 +180,10 @@
 					color={highlightColors[i % highlightColors.length]}
 				/>
 			{/each}
+
+			{#if sensorData.length == 0}
+			  <Welcome />
+			{/if}
 
 			<AddSensor />
 

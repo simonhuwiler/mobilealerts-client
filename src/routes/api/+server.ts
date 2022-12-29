@@ -16,6 +16,7 @@ export function POST(post:any)
 
 			// Now Fetch Mobile Alerts Api
 
+			// return fetch('http://127.0.0.1:8080', {
 			return fetch('https://www.data199.com/api/v1/dashboard', {
 				method: 'POST',
 				headers: headers,

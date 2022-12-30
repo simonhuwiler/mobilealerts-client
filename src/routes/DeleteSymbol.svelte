@@ -8,7 +8,7 @@
 
 </script>
 
-<div class='deletesymbol' on:click={update}>
+<div class='deletesymbol' on:click={update} on:keydown={update}>
   <span>x</span>
 </div>
 <div class='deleteoverlay' />

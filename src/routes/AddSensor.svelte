@@ -41,7 +41,7 @@
 
     <h2>Sensor hinzufügen</h2>
     <p>
-      Hier kannst Du neue Sensoren hinzufügen. Aktuell werden nur Temperatur- und Feuchtigkeitssensoren unterstützt. Der Sensor muss bereits mindestens ein Messpunkt aufgezeichnet haben, damit er hinzugefügt werden kann. Melde <a href='https://github.com/simonhuwiler/mobilealerts-client/issues' target='_blank'>Dich hier</a>, wenn Dein Sensor nicht unterstützt wird.
+      Hier kannst Du neue Sensoren hinzufügen. Aktuell werden nur Temperatur- und Feuchtigkeitssensoren unterstützt. Der Sensor muss bereits mindestens ein Messpunkt aufgezeichnet haben, damit er hinzugefügt werden kann. Melde <a href='https://github.com/simonhuwiler/mobilealerts-client/issues' target='_blank' rel='noreferrer'>Dich hier</a>, wenn Dein Sensor nicht unterstützt wird.
     </p>
     <button class="button-6" style='left:50%;transform:translateX(-50%)' on:click={() => state = 1}>Verstanden, Sensor hinzufügen</button>
 

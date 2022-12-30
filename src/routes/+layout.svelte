@@ -1,6 +1,8 @@
 <script>
 	import { storeIsDeleteMode } from './store.ts'
 	import './styles.css';
+
+	const startDeleteMode = () => storeIsDeleteMode.set(true)
 </script>
 
 <div class="app">
@@ -10,7 +12,7 @@
 	</main>
 
 	<div class='footer'>
-		<span class='link' on:click={() => storeIsDeleteMode.set(true)}>Sensor entfernen</span> | 
+		<span class='link' on:click={startDeleteMode} on:keydown={startDeleteMode}>Sensor entfernen</span> | 
 		<a href='https://github.com/simonhuwiler/mobilealerts-client' target='_blank' rel='noreferrer'>Source Code</a> | 
 		<a href='https://github.com/simonhuwiler/mobilealerts-client' target='_blank' rel='noreferrer'>Anleitung</a>
 	</div>

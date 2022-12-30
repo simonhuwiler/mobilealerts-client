@@ -82,14 +82,14 @@
   {
     font-weight: bold;
     font-size: 40px;
-    padding: 15px 0;
+    padding: 5px 0 15px;
     display: inline;
     float: left;
   }
 
   .value .right
   {
-    padding: 32px 0 0 10px;
+    padding: 25px 0 0 10px;
     float: left;
   }
 

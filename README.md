@@ -51,7 +51,7 @@ import adapter from '@sveltejs/adapter-auto';
 import adapter from '@sveltejs/adapter-static';
 ```
 
-Den Adapter musst du auf `strict=false` stellen. Ersetze...
+Den Adapter musst du auf `strict=false` setzen. Ersetze...
 ```js
 adapter: adapter()
 ```
@@ -73,7 +73,7 @@ const url:string = 'https://www.meinserver.com/api.php'
 Du musst nun eine eigene Api veröffentlichen. Wir haben einige in verschiedenen Sprachen (PHP, Python) erstellt. Falls Du eine andere Sprache nutzen möchtest, kannst Du einen eigenen Proxy schreiben. Du findest alles dazu [in diesem Repository](https://github.com/simonhuwiler/mobilealerts-api).
 
 **4. Build erstellen**  
-Nun kannst Du einen Build erstellen (im Ordner `build`), den Du auf Deinen Server hochladen kannst:
+Nun kannst Du einen Build erstellen, den Du auf Deinen Server hochladen kannst. Der Build wird im Ordner `/build` erstellt.
 ```bash
 npm run build
 ```

@@ -30,6 +30,7 @@ a, a:visited, a:active, a:hover, .link
 {
   color: black;
   text-decoration: underline;
+  cursor: pointer;
 }
 
 p

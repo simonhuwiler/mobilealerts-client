@@ -64,9 +64,9 @@ adapter: adapter({
 Alternativ kannst Du `svelte.staticsite.config.js` unbenennen in `svelte.config.js`.
 
 **2. Api-Adresse anpassen**  
-Öffne `src/routes/api.ts` und ersetze `const url:string = '/api'` mit der URL zu Deiner API. Zum Beispiel:
+Öffne `src/routes/config.ts` und ersetze `export const apiUrl:string = '/api'` mit der URL zu Deiner API. Zum Beispiel:
 ```js
-const url:string = 'https://www.meinserver.com/api.php'
+export const apiUrl:string = 'https://www.meinserver.com/api.php'
 ```
 
 **3. Erstelle die Api**  

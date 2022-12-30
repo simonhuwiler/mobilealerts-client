@@ -1,13 +1,22 @@
 <script lang="ts">
 
-  import { storeSensors } from './store.ts';
+  import { storeSensors, storePhoneID } from './store.ts';
+  import { defaultPhoneID } from './config'
 
-  var state = 0
-  let sensorID = ''
-  let sensorName = ''
+  var state:number = 0
+  let sensorID:string = ''
+  let sensorName:string = ''
 
-  let sensorIdEmpty = false
-  let sensorNameEmpty = false
+  let sensorIdEmpty:boolean = false
+  let sensorNameEmpty:boolean = false
+
+  // Subscribe to PhoneID
+  var phoneID: string;
+  storePhoneID.subscribe((v:string) => phoneID = v)
+
+  const afterWelcome = () => {
+    state = phoneID ? 2 : 1;
+  }
 
   const addSensor = () =>{
     sensorIdEmpty = sensorID == ""
@@ -15,6 +24,13 @@
     
     if(!sensorIdEmpty && !sensorNameEmpty)
     {
+      // PhoneID updaten
+      if(!phoneID || phoneID === '')
+        storePhoneID.set(defaultPhoneID)
+       else
+        storePhoneID.set(phoneID)
+
+
       if($storeSensors)
       {
         $storeSensors = [...$storeSensors, {
@@ -30,7 +46,7 @@
     		}];
       }      
 
-      state = 2
+      state = 3
     }
   }
 </script>
@@ -43,19 +59,36 @@
     <p>
       Hier kannst Du neue Sensoren hinzufügen. Aktuell werden nur Temperatur- und Feuchtigkeitssensoren unterstützt. Der Sensor muss bereits mindestens ein Messpunkt aufgezeichnet haben, damit er hinzugefügt werden kann. Melde <a href='https://github.com/simonhuwiler/mobilealerts-client/issues' target='_blank' rel='noreferrer'>Dich hier</a>, wenn Dein Sensor nicht unterstützt wird.
     </p>
-    <button class="button-6" style='left:50%;transform:translateX(-50%)' on:click={() => state = 1}>Verstanden, Sensor hinzufügen</button>
+    <button class="button-6" style='left:50%;transform:translateX(-50%)' on:click={afterWelcome}>Verstanden, Sensor hinzufügen</button>
 
   {:else if state == 1}
 
+    <h2>Smartphone ID (optional)</h2>
+
+    <p>
+      Hier kannst Du Deine <b>ID des Smartphones</b> hinterlegen. Du findest Sie in der App unter <i>Einstellungen</i>, <i>Phone ID</i>. Der Server merkt sich, welche Sensoren zu welchen Geräten passen. Du kannst es auch leer lassen, dann wird der Sensor einem allgemeinen Gerät zugeordnet.
+    </p>
     <div class='form'>
+      <input type='text' placeholder="ID des Smartphones (leer=allgemeines Gerät)" bind:value={phoneID}/>
+      <button class="button-6" on:click={() => state = 2}>Weiter</button>
+    </div>
+
+  {:else if state == 2}
+
+   <h2>Sensorangaben</h2>
+
+    <div class='formSensorAngaben'>
       <input type='text' class={sensorIdEmpty ? 'error' : ''} placeholder="Sensor ID" bind:value={sensorID}/>
       <input type='text' class={sensorNameEmpty ? 'error' : ''}  placeholder="Anzeigename"  bind:value={sensorName}/>
       <button class="button-6" on:click={addSensor}>Sensor hinzufügen</button>
     </div>
 
-  {:else if state == 2}
+  {:else if state == 3}
 
     <div class='message'>
+
+      <h2>Erledigt</h2>
+
       <p>
         Der Sensor wurde hinzugefügt. Die aktuelle Konfiguration wurde in Deinen Cookies gespeichert. Um diese Ansicht zu teilen, kopiere die angepasste URL oder setze sie als Lesezeichen.
       </p>
@@ -98,6 +131,11 @@
   input.error
   {
     border: 1px solid red;
+  }
+
+  .formSensorAngaben
+  {
+    padding: 20px 0 0 0;
   }
     
 </style>

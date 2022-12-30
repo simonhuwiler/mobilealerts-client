@@ -1,8 +1,12 @@
+import { storePhoneID } from './store.ts'
+import { defaultPhoneID, apiUrl } from './config'
+
 import MD5 from "crypto-js/md5";
 
-export const fetchApi = (sensors: string[]) => {
+var phoneID:string;
+storePhoneID.subscribe((v:string) => phoneID)
 
-  const url:string = '/api'
+export const fetchApi = (sensors: string[]) => {
 
   const headers:any = {
     // 'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
@@ -17,7 +21,7 @@ export const fetchApi = (sensors: string[]) => {
 const payload_token:any = {
     'devicetoken':      'empty',
     'vendorid':         'BE60BB85-EAC9-4C5B-8885-1A54A9D51E2',
-    'phoneid':          'unknown', //Math.round(Math.random() * (999999999999 - 100000000000) + 100000000000), // Generate Random Phone ID
+    'phoneid':          phoneID ? phoneID : defaultPhoneID,
     'version':          '1.54',
     'build':            '201',
     'executable':       'eu.mobile_alerts.weatherhub',
@@ -57,7 +61,7 @@ const payload_token:any = {
 
   const payload = {...payload_token, ...payload_untoken}
 
-  return fetch(url, {
+  return fetch(apiUrl, {
     method: 'POST',
     headers: headers,
     body: JSON.stringify(payload)

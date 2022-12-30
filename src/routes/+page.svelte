@@ -2,7 +2,7 @@
 	import { onMount } from 'svelte';
 	import { page } from "$app/stores"; 
 	import { goto } from "$app/navigation";
-	import { storeSensors, storeIsDeleteMode } from './store.ts'
+	import { storeSensors, storeIsDeleteMode, storePhoneID } from './store.ts'
 
 	import { SensorType } from './sensors'
 	import { fetchApi } from './api'
@@ -175,7 +175,27 @@
 			}
 		}
 
+		// Load phoneID-Cookie
+		if(document.cookie != '')
+		{
+			var cookies:any = parseCookie(document.cookie);
+			if('phoneid' in cookies)
+			{
+				storePhoneID.set(cookies.phoneid)
+			}
+		}
+
+		// Subscribe to PhoneID-Change and update Cookie
+		storePhoneID.subscribe((v:string) => {
+			if(v && v !== '')
+			{
+				document.cookie = `phoneid=${v}; expires=Thu, 18 Dec 2053 12:00:00 UTC; path=/`;					
+			}
+		})		
+
 	});
+
+
 
 </script>
 

@@ -1,5 +1,5 @@
 # Mobile Alerts - meine Sensoren
-Dies ist ein einfaches Dashboard für Deine Mobile Alerts-Sensoren (auch bekannt unter den Namen TFA, ELV oder Thermo Connect). Das Dashboard ist besonders fürs Smartphone optimiert. Du kannst es kostenlos nutzen oder einen eigenen Server betreiben.
+Dies ist ein einfaches Dashboard für Deine Mobile Alerts-Sensoren (auch bekannt unter den Namen TFA, ELV oder Thermo Connect). Das Dashboard ersetzt nicht die App des Herstellers, sondern ergänzt die (lieblos gestaltete) App und bietet eine schnelle Übersicht, optimiert für Smartphones. Du kannst es kostenlos nutzen oder einen eigenen Server betreiben.
 
 [» Zum Dashboard](https://mobilealerts.vercel.app/)
 <p align="center">
@@ -8,10 +8,10 @@ Dies ist ein einfaches Dashboard für Deine Mobile Alerts-Sensoren (auch bekannt
     style="width: 300px" />
 </p>
 
- Aktuell werden nur Temperatur- und Feuchtigkeitssensoren unterstützt. Deine Daten werden nicht gespeichert, alle Messwerte werden direkt vom Mobile Alerts-Server geholt. Die Seite speichert jedoch Deine Sensoren in Deinen Cookies, damit Du sie beim nächsten Aufruf nicht erneut eingeben musst.
+Aktuell werden nur Temperatur- und Feuchtigkeitssensoren unterstützt. Deine Daten werden nicht gespeichert, alle Messwerte werden direkt vom Mobile Alerts-Server geholt. Die Seite speichert jedoch Deine Sensoren in Deinen Cookies, damit Du sie beim nächsten Aufruf nicht erneut eingeben musst.
 
 ## Selber hosten
-Du kannst das Dashboard mit wenig Aufwand selbst hosten. Die Website braucht einen Api-Proxy, um die Anfragen weiterzuleiten. Wir nutzen Node. Mit folgender Anleitung kannst Du es einfach hosten. Hast Du keinen Nodeserver, gibt es weiter unten eine Anleitung (`Für Entwickler`), wie Du einen alternativen Apiproxy nutzen kannst.
+Du kannst das Dashboard mit wenig Aufwand selbst hosten. Die Website braucht einen Api-Proxy, um die Anfragen weiterzuleiten. Wir nutzen Node. Mit folgender Anleitung kannst Du einfach und kostenlos Deinen eigenen Server starten. Möchtest Du es auf einem bestehenden Server ohne Node laufen lassen, dann schau Dir die Anleitung weiter unten (`Für Entwickler`) an.
 
 ### 1. Accounts erstellen
 Du brauchst Accounts bei zwei Diensten, beide sind kostenlos:

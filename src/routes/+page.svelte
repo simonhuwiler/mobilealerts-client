@@ -180,8 +180,24 @@
 </script>
 
 <svelte:head>
-	<title>Meine Sensoren</title>
-	<meta name="description" content="Mobile Alerts Sensoren" />
+	<title>Meine Sensoren | Dashboard</title>
+	<meta name="description" content="Ein Dashboard für Mobile Alerts Sensoren" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	
+	<!-- FACEBOOK -->
+	<meta property="og:url"           content="https://mobilealerts.vercel.app/" />
+	<meta property="og:type"          content="website" />
+	<meta property="og:title"         content="Meine Sensore | Dashboard" />
+	<meta property="og:description"   content="Ein Dashboard für Mobile Alerts Sensoren" />
+	<meta property="og:image"         content="https://mobilealerts.vercel.app/teaser.png" />
+
+	<!-- TWITTER -->
+	<meta name="twitter:card" content="summary_large_image"/>
+	<meta name="twitter:url" content="https://mobilealerts.vercel.app/" />
+	<meta name="twitter:title" content="Meine Sensore | Dashboard"/>
+	<meta name="twitter:description" content="Ein Dashboard für Mobile Alerts Sensoren"/>
+	<meta name="twitter:image" content="https://mobilealerts.vercel.app/teaser.png"/>
 </svelte:head>
 
 <section>

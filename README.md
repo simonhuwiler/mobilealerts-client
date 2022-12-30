@@ -5,7 +5,7 @@ Dies ist ein einfaches Dashboard für Deine Mobile Alerts-Sensoren (auch bekannt
 <p align="center">
   <img src="docs/mockup.png"
     alt="Dashboard-Mockdown"
-    style="max-width: 200px" />
+    style="width: 200px" />
 </p>
 
  Aktuell werden nur Temperatur- und Feuchtigkeitssensoren unterstützt. Deine Daten werden nicht gespeichert, alle Messwerte werden direkt vom Mobile Alerts-Server geholt. Die Seite speichert jedoch Deine Sensoren in Deinen Cookies, damit Du sie beim nächsten Aufruf nicht erneut eingeben musst.

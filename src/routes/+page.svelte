@@ -237,9 +237,7 @@
 			  <Welcome />
 			{/if}
 
-			{#if !isDeleteMode}
-			  <AddSensor />
-			{/if}
+		  <AddSensor />
 
 			{#if isDeleteMode}
 			  <DeleteSaveBar />

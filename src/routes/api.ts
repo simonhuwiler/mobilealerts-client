@@ -5,13 +5,13 @@ export const fetchApi = (sensors: string[]) => {
   const url:string = '/api'
 
   const headers:any = {
-    'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
-    'User-Agent': 'Dalvik/2.1.0 (Linux; U; Android 6.0; Android SDK built for x86 Build/MASTER)',
-    'Host': 'www.data199.com',
-    'Connection': 'Keep-Alive',
-    'Accept-Encoding': 'gzip',
-    'Content-Length': '555',
-    'Access-Control-Allow-Origin': '*'
+    // 'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
+    // 'User-Agent': 'Dalvik/2.1.0 (Linux; U; Android 6.0; Android SDK built for x86 Build/MASTER)',
+    // 'Host': 'www.data199.com',
+    // 'Connection': 'Keep-Alive',
+    // 'Accept-Encoding': 'gzip',
+    // 'Content-Length': '555',
+    // 'Access-Control-Allow-Origin': '*'
   }
 
 const payload_token:any = {

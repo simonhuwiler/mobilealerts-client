@@ -17,7 +17,7 @@ export const fetchApi = (sensors: string[]) => {
 const payload_token:any = {
     'devicetoken':      'empty',
     'vendorid':         'BE60BB85-EAC9-4C5B-8885-1A54A9D51E2',
-    'phoneid':          Math.round(Math.random() * (999999999999 - 100000000000) + 100000000000), // Generate Random Phone ID'unknown',
+    'phoneid':          'unknown', //Math.round(Math.random() * (999999999999 - 100000000000) + 100000000000), // Generate Random Phone ID
     'version':          '1.54',
     'build':            '201',
     'executable':       'eu.mobile_alerts.weatherhub',

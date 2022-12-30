@@ -1,38 +1,79 @@
-# create-svelte
+# Mobile Alerts - meine Sensoren
+Dies ist ein einfaches Dashboard für Deine Mobile Alerts-Sensoren (auch bekannt unter den Namen TFA, ELV oder Thermo Connect). Das Dashboard ist besonders fürs Smartphone optimiert. Du kannst es kostenlos nutzen oder einen eigenen Server betreiben.
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+[» Zum Dashboard](https://mobilealerts.vercel.app/)
+<p align="center">
+  <img src="docs/mockup.png"
+    alt="Dashboard-Mockdown"
+    style="max-width: 300px" />
+</p>
 
-## Creating a project
+ Aktuell werden nur Temperatur- und Feuchtigkeitssensoren unterstützt. Deine Daten werden nicht gespeichert, alle Messwerte werden direkt vom Mobile Alerts-Server geholt. Die Seite speichert jedoch Deine Sensoren in Deinen Cookies, damit Du sie beim nächsten Aufruf nicht erneut eingeben musst.
 
-If you're seeing this, you've probably already done this step. Congrats!
+## Selber hosten
+Du kannst das Dashboard mit wenig Aufwand selbst hosten. Die Website braucht einen Api-Proxy, um die Anfragen weiterzuleiten. Wir nutzen Node. Mit folgender Anleitung kannst Du es einfach hosten. Hast Du keinen Nodeserver, gibt es weiter unten eine Anleitung (`Für Entwickler`), wie Du einen alternativen Apiproxy nutzen kannst.
 
-```bash
-# create a new project in the current directory
-npm create svelte@latest
+### 1. Accounts erstellen
+Du brauchst Accounts bei zwei Diensten, beide sind kostenlos:
+* [GitHub](https://www.github.com)
+* [Vercel](https://vercel.com/) (Du kannst Deinen GitHub-Account nutzen)
 
-# create a new project in my-app
-npm create svelte@latest my-app
+### 2. Project Forken
+Du musst eine Kopie des Source-Codes in Deinem Account erstellen. Klicke hier, wo Du gerade bist, oben rechts auf `Fork`. Klicke auf `Create fork`. Nun hast Du eine Kopie angelegt.
+
+### 3. Deployen/Veröffentlichen
+* Erstelle auf Vercel ein neues Projekt (`Add New...` / `Project`).
+* Wähle oder suche das geforkte Repository. Siehst Du es nicht, klicke auf `Adjust GitHub App Permissions` und erteile Vercel die nötigen Berechtigungen.
+* Klicke auf Deploy
+Nach ein paar Sekunden ist Deine Seite online.
+
+## Für Entwickler
+### Installation
 ```
-
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```bash
+npm install
 npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
 ```
 
-## Building
+### Ohne Node-Server deployen
+Das Dashboard braucht einen Apiproxy, der die Anfrage an den Server von Mobile Alerts weiterleitet und dabei wenige Header-Informationen anpasst. Willst Du die Seite ohne Node-Server hosten, musst Du folgende Anpassungen vornehmen:
 
-To create a production version of your app:
+**1. Svelte-Adapter ändern**  
+Installiere den static-adapter:
+```
+npm install @sveltejs/adapter-static
+```
+Ersetze nun in `svelte.config.js` folgende Zeile...
+```js
+import adapter from '@sveltejs/adapter-auto';
+```
+... mit...
+```js
+import adapter from '@sveltejs/adapter-static';
+```
 
+Den Adapter musst du auf `strict=false` stellen. Ersetze...
+```js
+adapter: adapter()
+```
+... mit...
+```js
+adapter: adapter({
+	strict: false
+})
+```
+Alternativ kannst Du `svelte.staticsite.config.js` unbenennen in `svelte.config.js`.
+
+**2. Api-Adresse anpassen**  
+Öffne `src/routes/api.ts` und ersetze `const url:string = '/api'` mit der URL zu Deiner API. Zum Beispiel:
+```js
+const url:string = 'https://www.meinserver.com/api.php'
+```
+
+**3. Erstelle die Api**  
+Du musst nun eine eigene Api veröffentlichen. Wir haben einige in verschiedenen Sprachen (PHP, Python) erstellt. Falls Du eine andere Sprache nutzen möchtest, kannst Du einen eigenen Proxy schreiben. Du findest alles dazu [in diesem Repository](https://github.com/simonhuwiler/mobilealerts-api).
+
+**4. Build erstellen**  
+Nun kannst Du einen Build erstellen (im Ordner `build`), den Du auf Deinen Server hochladen kannst:
 ```bash
 npm run build
 ```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.

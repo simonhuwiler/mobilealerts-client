@@ -2,11 +2,12 @@
 	import { onMount } from 'svelte';
 	import { page } from "$app/stores"; 
 	import { goto } from "$app/navigation";
-	import { sensors } from './store.ts'
+	import { storeSensors, storeIsDeleteMode } from './store.ts'
 
 	import { SensorType } from './sensors'
 	import { fetchApi } from './api'
 	import SensorStandard from './SensorStandard.svelte';
+	import DeleteSaveBar from './DeleteSaveBar.svelte';
 	import AddSensor from './AddSensor.svelte';
 	import Loading from './Loading.svelte';
 	import Welcome from './Welcome.svelte'
@@ -16,6 +17,10 @@
 
 	// Define Colors
 	const highlightColors = ['#ff6f10', '#3b910a', '#36389c', '#0083a3']
+
+	// Subscribe to Delete Mode
+	var isDeleteMode = false
+	storeIsDeleteMode.subscribe((v:boolean) => isDeleteMode = v)
 
 	const cloneAndRename = (device:any, property:string, userSensors:any[]):any => {
 		// Clone entry
@@ -44,16 +49,27 @@
 	onMount(async () => {
 
 		// Update URL on Store Change
-		sensors.subscribe((userSensors:any[]) => {
-
-			if(userSensors.length > 0)
+		storeSensors.subscribe((userSensors:any[]) => {
+			if(userSensors && userSensors.length == 0)
 			{
-				// Fetch Data
+				// We had sensor once, but not now. Remove Cookie and URL
+				$page.url.searchParams.delete('sensors');
+				goto(`?${$page.url.searchParams.toString()}`);
+
+				// Cookies entfernen
+				document.cookie = `sensors=; Max-Age=-9999; path=/`;
+
+				// Remove views
+				sensorData = []
+			}
+			else if(userSensors)
+			{
+				// We have Sensors. Fetch Data
+
 				loadingInProgress = true
 				fetchApi(userSensors.map(v => v.sensorID))
 				  .then(response => response.json())
   				.then(response => {
-						console.log(response)
 
 						// Calculate, how many "sensors" we have (a sensor with temperature and humidity combined equals two sensors)
 						// We go quick and dirty, what kind of sensor it is, we just look for "t1", "t2" or "h" in measurement data
@@ -147,7 +163,7 @@
 			const urlParams:any = parseCookie(queryString.substring(1))
 			if('sensors' in urlParams)
 			{
-				sensors.set(sensorStringToSensorArray(urlParams.sensors))
+				storeSensors.set(sensorStringToSensorArray(urlParams.sensors))
 			}
 		}
 		else if(document.cookie != '')
@@ -155,7 +171,7 @@
 			var cookies:any = parseCookie(document.cookie);
 			if('sensors' in cookies)
 			{
-				sensors.set(sensorStringToSensorArray(cookies.sensors))
+				storeSensors.set(sensorStringToSensorArray(cookies.sensors))
 			}
 		}
 
@@ -185,12 +201,16 @@
 			  <Welcome />
 			{/if}
 
-			<AddSensor />
+			{#if !isDeleteMode}
+			  <AddSensor />
+			{/if}
+
+			{#if isDeleteMode}
+			  <DeleteSaveBar />
+			{/if}
 
 		{:else}
-
 			<Loading />
-
 		{/if}
 
 	</div>

@@ -1,4 +1,5 @@
 <script>
+	import { storeIsDeleteMode } from './store.ts'
 	import './styles.css';
 </script>
 
@@ -9,8 +10,11 @@
 	</main>
 
 	<div class='footer'>
-		Sensor entfernen | <a href='https://github.com/simonhuwiler/mobilealerts-client' target='_blank' rel='noreferrer'>Source Code</a> | <a href='https://github.com/simonhuwiler/mobilealerts-client' target='_blank' rel='noreferrer'>Anleitung</a>
+		<span class='link' on:click={() => storeIsDeleteMode.set(true)}>Sensor entfernen</span> | 
+		<a href='https://github.com/simonhuwiler/mobilealerts-client' target='_blank' rel='noreferrer'>Source Code</a> | 
+		<a href='https://github.com/simonhuwiler/mobilealerts-client' target='_blank' rel='noreferrer'>Anleitung</a>
 	</div>
+
 </div>
 
 <style>
@@ -26,6 +30,7 @@
 		font-size: 12px;
 		color: grey;
 		text-align: center;
+		padding: 0 0 10px 0;
 	}
 
 </style>

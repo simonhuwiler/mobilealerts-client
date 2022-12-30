@@ -2,7 +2,9 @@
 
   import { extent } from 'd3';
   import { SensorType } from './sensors'
+  import { storeIsDeleteMode, storeRemoveSensorPreview } from './store.ts';
   import LineChart from './LineChart.svelte'
+  import DeleteSymbol from './DeleteSymbol.svelte'
 
   export let data: any = null
   export let sensor:SensorType
@@ -36,31 +38,44 @@
      extentY = [0, 100]
   }
 
+  // Subscribe to delete Mode
+  var isDeleteMode:boolean = false
+  storeIsDeleteMode.subscribe((v:boolean) => isDeleteMode = v)
+
+  var removeSensorPreview:string[] = false
+  var isDeleted:boolean = false
+  storeRemoveSensorPreview.subscribe((v:string[]) => isDeleted = v.includes(data.deviceid))
+  
+
 </script>
 
-<div class="chartstandard box">
+<div class="chartstandard box" class:deleted={isDeleted}>
 
-    <h2 style:color={color}>{sensorName}</h2>
-    {#if data.lowbattery}
-      <div class='lowbattery'>Batterie bald leer</div>
-    {/if}
+   {#if isDeleteMode}
+    <DeleteSymbol sensorID = {data.deviceid}/>
+  {/if}
 
-    <div class='value'>
-      <div class='big' style:color={color}>{data.measurements[0]['_value']}</div>
-      <div class='right'>
-        <div class='unit' style:color={color}>{sensor == SensorType.Temperature ? '°C' : '%'}</div>
-        
-        <div class='timestamp'>vor {timestampToDuration(data.measurements[0].ts)}</div>
-      </div>
+  <h2 style:color={color}>{sensorName}</h2>
+  {#if data.lowbattery}
+    <div class='lowbattery'>Batterie bald leer</div>
+  {/if}
+
+  <div class='value'>
+    <div class='big' style:color={color}>{data.measurements[0]['_value']}</div>
+    <div class='right'>
+      <div class='unit' style:color={color}>{sensor == SensorType.Temperature ? '°C' : '%'}</div>
+      
+      <div class='timestamp'>vor {timestampToDuration(data.measurements[0].ts)}</div>
     </div>
+  </div>
 
-    {#if data !== null}
-      <LineChart 
-        data={data.measurements}
-        extentY = {extentY}
-        color = {color}
-        />
-    {/if}
+  {#if data !== null}
+    <LineChart 
+      data={data.measurements}
+      extentY = {extentY}
+      color = {color}
+      />
+  {/if}
     
 </div>
 
@@ -109,6 +124,22 @@
     content: "";
     clear: both;
     display: table;
+  }
+
+  .deleted
+  {
+    /* height: 400px; */
+    animation: shrink 0.5s linear normal forwards;
+    overflow: hidden;
+  }
+
+  @keyframes shrink {
+    from {max-height: 400px}
+    to {
+      max-height: 0px;
+      padding-top: 0px;
+      padding-bottom: 0px;
+    }
   }
     
 </style>

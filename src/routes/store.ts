@@ -1,3 +1,5 @@
 import { writable } from 'svelte/store';
 
-export const sensors:any[] = writable([]);
+export const storeSensors = writable(null);
+export const storeIsDeleteMode = writable(false)
+export const storeRemoveSensorPreview = writable([])

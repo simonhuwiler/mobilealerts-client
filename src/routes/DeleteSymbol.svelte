@@ -29,6 +29,7 @@
     font-family: Verdana;
     display: inline-block;
     z-index: 2000;
+    cursor: pointer;
   }
 
   .deletesymbol span

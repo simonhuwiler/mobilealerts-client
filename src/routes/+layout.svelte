@@ -1,8 +1,13 @@
-<script>
-	import { storeIsDeleteMode } from './store.ts'
+<script lang="ts">
+	import { storeIsDeleteMode, storeHideAddSensor } from './store.ts'
 	import './styles.css';
 
 	const startDeleteMode = () => storeIsDeleteMode.set(true)
+
+	// Subscribe to Hide Add Sensor
+	var hideAddSensor:boolean = false
+	storeHideAddSensor.subscribe((v:boolean) => hideAddSensor = v)
+
 </script>
 
 <div class="app">
@@ -13,6 +18,8 @@
 
 	<div class='footer'>
 		<span class='link' on:click={startDeleteMode} on:keydown={startDeleteMode}>Sensor entfernen</span> | 
+		<span class='link' on:click={() => storeHideAddSensor.set(!hideAddSensor)} on:keydown={() => storeHideAddSensor.set(!hideAddSensor)}>«Sensor hinzufügen {hideAddSensor ? 'anzeigen' : 'ausblenden'}</span> | 
+
 		<a href='https://github.com/simonhuwiler/mobilealerts-client' target='_blank' rel='noreferrer'>Source Code</a> | 
 		<a href='https://github.com/simonhuwiler/mobilealerts-client' target='_blank' rel='noreferrer'>Anleitung</a>
 	</div>

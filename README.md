@@ -1,5 +1,5 @@
 # Mobile Alerts - meine Sensoren
-Dies ist ein einfaches Dashboard für Deine Mobile Alerts-Sensoren (verkauft unter den Marken Technoline, TFA, ELV oder Thermo Connect). Das Dashboard ersetzt nicht die App des Herstellers, sondern ergänzt die (lieblos gestaltete) App und bietet eine schnelle Übersicht, optimiert für Smartphones. Du kannst es kostenlos nutzen oder einen eigenen Server betreiben.
+Dies ist ein einfaches Dashboard für Deine Mobile Alerts-Sensoren (verkauft unter den Marken Technoline, TFA, ELV oder Thermo Connect). Das Dashboard ersetzt nicht die App des Herstellers (und wird es auch in Zukunft nicht), sondern ergänzt die (lieblos gestaltete) App. Dieses Dashboard soll Dir eine schnelle Übersicht über Deine Sensoren bieten, optimiert für Smartphones. Du kannst es kostenlos nutzen oder einen eigenen Server betreiben.
 
 [» Zum Dashboard](https://mobilealerts.vercel.app/)
 <p align="center">
@@ -25,6 +25,7 @@ Du musst eine Kopie des Source-Codes in Deinem Account erstellen. Klicke hier, w
 * Erstelle auf Vercel ein neues Projekt (`Add New...` / `Project`).
 * Wähle oder suche das geforkte Repository. Siehst Du es nicht, klicke auf `Adjust GitHub App Permissions` und erteile Vercel die nötigen Berechtigungen.
 * Klicke auf Deploy
+
 Nach ein paar Sekunden ist Deine Seite online.
 
 ## Für Entwickler

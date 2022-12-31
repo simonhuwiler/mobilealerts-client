@@ -2,7 +2,7 @@
 	import { onMount } from 'svelte';
 	import { page } from "$app/stores"; 
 	import { goto } from "$app/navigation";
-	import { storeSensors, storeIsDeleteMode, storePhoneID } from './store.ts'
+	import { storeSensors, storeIsDeleteMode, storePhoneID, storeHideAddSensor } from './store.ts'
 
 	import { SensorType } from './sensors'
 	import { fetchApi } from './api'
@@ -14,12 +14,13 @@
 
 	var sensorData:any[] = []
 	var loadingInProgress:boolean = false
+	var hideAddSensor:boolean = false
 
 	// Define Colors
 	const highlightColors = ['#ff6f10', '#3b910a', '#36389c', '#0083a3']
 
 	// Subscribe to Delete Mode
-	var isDeleteMode = false
+	var isDeleteMode:boolean = false
 	storeIsDeleteMode.subscribe((v:boolean) => isDeleteMode = v)
 
 	const cloneAndRename = (device:any, property:string, userSensors:any[]):any => {
@@ -189,9 +190,47 @@
 		storePhoneID.subscribe((v:string) => {
 			if(v && v !== '')
 			{
-				document.cookie = `phoneid=${v}; expires=Thu, 18 Dec 2053 12:00:00 UTC; path=/`;					
+				document.cookie = `phoneid=${v}; expires=Thu, 18 Dec 2053 12:00:00 UTC; path=/`;
 			}
-		})		
+		})
+
+		// Load Hide Add Sensor from Param or Cookie
+		if(queryString != '')
+		{
+			const urlParams:any = parseCookie(queryString.substring(1))
+			if('hideaddsensor' in urlParams)
+			{
+				storeHideAddSensor.set(urlParams.hideaddsensor == 1 ? true : false)
+			}
+		}
+		else if(document.cookie != '')
+		{
+			var cookies:any = parseCookie(document.cookie);
+			if('hideaddsensor' in cookies)
+			{
+				storeHideAddSensor.set(cookies.hideaddsensor == 1 ? true : false)
+			}
+		}
+
+		// Subscribe to PhoneID-Change and update Cookie
+		storePhoneID.subscribe((v:string) => {
+			if(v && v !== '')
+			{
+				document.cookie = `phoneid=${v}; expires=Thu, 18 Dec 2053 12:00:00 UTC; path=/`;
+			}
+		})
+
+		// Subscribe to Hide Add Sensor
+		storeHideAddSensor.subscribe((v:boolean) => {
+			hideAddSensor = v
+
+			// Add to url
+			$page.url.searchParams.set('hideaddsensor', v ? 1 : 0); 
+			goto(`?${$page.url.searchParams.toString()}`);
+
+			// Add Cookie
+			document.cookie = `hideaddsensor=${v ? 1 : 0}; expires=Thu, 18 Dec 2053 12:00:00 UTC; path=/`;
+		})	
 
 	});
 
@@ -237,7 +276,9 @@
 			  <Welcome />
 			{/if}
 
-		  <AddSensor />
+			{#if !hideAddSensor}
+		  	<AddSensor />
+			{/if}
 
 			{#if isDeleteMode}
 			  <DeleteSaveBar />

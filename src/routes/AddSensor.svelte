@@ -62,8 +62,8 @@
 
     <button class="button-6" style='left:50%;transform:translateX(-50%);margin:10px 0 20px;' on:click={afterWelcome}>Verstanden, Sensor hinzufügen</button>
 
-    <p style='text-align: center; font-size: 0.8em;'>
-		  <span class='link' on:click={() => storeHideAddSensor.set(true)} on:keydown={() => storeHideAddSensor.set(true)}>Diesen Block ausblenden</span><br />
+    <p style='text-align: center; font-size: 0.8em'>
+		  <span class='link' style='color: grey;' on:click={() => storeHideAddSensor.set(true)} on:keydown={() => storeHideAddSensor.set(true)}>Diesen Block ausblenden</span><br />
     </p>
 
 

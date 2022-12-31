@@ -10,7 +10,7 @@
   export let sensor:SensorType
   export let sensorName: string = ''
   export let color:string;
-  
+
   const timestampToDuration = (timestamp: number) => {
     const now: Date = new Date();
     const then: Date = new Date(timestamp * 1000)
@@ -42,10 +42,8 @@
   var isDeleteMode:boolean = false
   storeIsDeleteMode.subscribe((v:boolean) => isDeleteMode = v)
 
-  var removeSensorPreview:string[] = false
   var isDeleted:boolean = false
-  storeRemoveSensorPreview.subscribe((v:string[]) => isDeleted = v.includes(data.deviceid))
-  
+  storeRemoveSensorPreview.subscribe((v:string[]) => isDeleted = v.includes(data.deviceid))  
 
 </script>
 

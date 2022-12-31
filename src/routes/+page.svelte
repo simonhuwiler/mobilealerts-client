@@ -197,8 +197,7 @@
 		// Load Hide Add Sensor from Param or Cookie
 		if(queryParams.hideaddsensor)
 		{
-			storeSensors.set(sensorStringToSensorArray(queryParams.sensors))
-			storeHideAddSensor.set(queryParams.sensors == 1 ? true : false)
+			storeHideAddSensor.set(queryParams.hideaddsensor == '1' ? true : false)
 		}
 		else if(document.cookie != '')
 		{
@@ -222,7 +221,7 @@
 			hideAddSensor = v
 
 			// Add to url
-			$page.url.searchParams.set('hideaddsensor', v ? 1 : 0); 
+			$page.url.searchParams.set('hideaddsensor', v ? '1' : '0'); 
 			goto(`?${$page.url.searchParams.toString()}`);
 
 			// Add Cookie

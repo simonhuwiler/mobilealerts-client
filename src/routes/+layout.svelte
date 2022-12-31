@@ -18,8 +18,9 @@
 
 	<div class='footer'>
 		<span class='link' on:click={startDeleteMode} on:keydown={startDeleteMode}>Sensor entfernen</span> | 
-		<span class='link' on:click={() => storeHideAddSensor.set(!hideAddSensor)} on:keydown={() => storeHideAddSensor.set(!hideAddSensor)}>«Sensor hinzufügen {hideAddSensor ? 'anzeigen' : 'ausblenden'}</span> | 
-
+		{#if hideAddSensor}
+			<span class='link' on:click={() => storeHideAddSensor.set(!hideAddSensor)} on:keydown={() => storeHideAddSensor.set(!hideAddSensor)}>«Sensor hinzufügen» einblenden</span> | 
+		{/if}
 		<a href='https://github.com/simonhuwiler/mobilealerts-client' target='_blank' rel='noreferrer'>Source Code</a> | 
 		<a href='https://github.com/simonhuwiler/mobilealerts-client' target='_blank' rel='noreferrer'>Anleitung</a>
 	</div>

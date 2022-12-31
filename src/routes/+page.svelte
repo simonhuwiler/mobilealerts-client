@@ -158,14 +158,14 @@
 			return sensorArray;
 		}
 
-		const queryString:string = window.location.search;
-		if(queryString != '')
+		// Get URL Parameters
+		const queryParams = new Proxy(new URLSearchParams(window.location.search), {
+		  get: (searchParams, prop) => searchParams.get(prop),
+		});
+
+		if(queryParams.sensors)
 		{
-			const urlParams:any = parseCookie(queryString.substring(1))
-			if('sensors' in urlParams)
-			{
-				storeSensors.set(sensorStringToSensorArray(urlParams.sensors))
-			}
+			storeSensors.set(sensorStringToSensorArray(queryParams.sensors))
 		}
 		else if(document.cookie != '')
 		{
@@ -195,13 +195,10 @@
 		})
 
 		// Load Hide Add Sensor from Param or Cookie
-		if(queryString != '')
+		if(queryParams.hideaddsensor)
 		{
-			const urlParams:any = parseCookie(queryString.substring(1))
-			if('hideaddsensor' in urlParams)
-			{
-				storeHideAddSensor.set(urlParams.hideaddsensor == 1 ? true : false)
-			}
+			storeSensors.set(sensorStringToSensorArray(queryParams.sensors))
+			storeHideAddSensor.set(queryParams.sensors == 1 ? true : false)
 		}
 		else if(document.cookie != '')
 		{
@@ -212,7 +209,7 @@
 			}
 		}
 
-		// Subscribe to PhoneID-Change and update Cookie
+		// Subscribe to PhoneID-Change and update Cookie		
 		storePhoneID.subscribe((v:string) => {
 			if(v && v !== '')
 			{

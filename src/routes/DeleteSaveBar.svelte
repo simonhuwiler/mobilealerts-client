@@ -38,13 +38,14 @@
     bottom: 10px;
     left: 50%;
     transform: translateX(-50%);
-    width: 252px;
+    min-width: 100%;
     padding: 5px;
-    background-color: rgb(161, 161, 161);
-    border: 1px solid rgb(228, 228, 228);
+    background-color: rgba(63, 63, 63, 0.866);
+    box-shadow: 0px 0px 15px 10px rgba(0,0,0,0.1);
     border-radius: 5px;
     z-index: 3000;
     display: inline-block;
+    text-align: center;
   }
 
   button

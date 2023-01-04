@@ -104,26 +104,26 @@
 								// Has Temperature?
 								var m0:any = device.measurements[0]
 
-								if('t1' in m0)
-								{
-									var cloned:any = cloneAndRename(device, 't1', userSensors)
-									cloned['_sensorType'] = SensorType.Temperature
-									sensorData.push(cloned)
-								}
-								
-								if('t2' in m0)
-								{
-									var cloned:any = cloneAndRename(device, 't2', userSensors)
-									cloned['_sensorType'] = SensorType.Temperature
-									sensorData.push(cloned)
-								}
-								
-								if('h' in m0)
-								{
-									var cloned:any = cloneAndRename(device, 'h', userSensors)
-									cloned['_sensorType'] = SensorType.Humidity
-									sensorData.push(cloned)
-								}
+								const temperatureVars:string[] = ['t', 't1', 't2', 't3', 't4']
+								const humidityVars:string[] = ['h', 'h1', 'h2', 'h3', 'h4']
+
+								temperatureVars.forEach((v:string) => {
+									if(v in m0)
+									{
+										var cloned:any = cloneAndRename(device, v, userSensors)
+										cloned['_sensorType'] = SensorType.Temperature
+										sensorData.push(cloned)
+									}									
+								})
+
+								humidityVars.forEach((v:string) => {
+									if(v in m0)
+									{
+										var cloned:any = cloneAndRename(device, v, userSensors)
+										cloned['_sensorType'] = SensorType.Humidity
+										sensorData.push(cloned)
+									}									
+								})								
 
 							})
 						}

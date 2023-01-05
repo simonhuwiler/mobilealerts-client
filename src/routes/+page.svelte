@@ -13,6 +13,7 @@
 	import Welcome from './Welcome.svelte'
 
 	var sensorData:any[] = []
+	var sensorIDs:string[] = []
 	var loadingInProgress:boolean = false
 	var hideAddSensor:boolean = false
 
@@ -70,7 +71,7 @@
 				loadingInProgress = true
 				fetchApi(userSensors.map(v => v.sensorID))
 				  .then(response => response.json())
-  				.then(response => {
+  				  .then(response => {
 
 						// Calculate, how many "sensors" we have (a sensor with temperature and humidity combined equals two sensors)
 						// We go quick and dirty, what kind of sensor it is, we just look for "t1", "t2" or "h" in measurement data
@@ -126,6 +127,10 @@
 								})								
 
 							})
+
+							// Add Sensor IDs for chosing the right color. Same Sensors should have same color
+							sensorIDs = sensorData.map(v => v.deviceid)
+							sensorIDs = [...new Set(sensorIDs)];
 						}
 					})
 					.catch(e => {
@@ -264,7 +269,7 @@
 				  data = {sensor}
 					sensor = {sensor['_sensorType']}
 					sensorName={sensor.name}
-					color={highlightColors[i % highlightColors.length]}
+					color={highlightColors[sensorIDs.indexOf(sensor['deviceid']) % highlightColors.length]}
 				/>
 			{/each}
 

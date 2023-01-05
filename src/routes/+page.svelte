@@ -17,7 +17,7 @@
 	var hideAddSensor:boolean = false
 
 	// Define Colors
-	const highlightColors = ['#ff6f10', '#3b910a', '#36389c', '#0083a3']
+	const highlightColors = ['#ff6f10', '#3b910a', '#36389c', '#d2168d', '#0083a3', '#bd8a05']
 
 	// Subscribe to Delete Mode
 	var isDeleteMode:boolean = false

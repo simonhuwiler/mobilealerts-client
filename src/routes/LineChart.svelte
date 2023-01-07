@@ -2,7 +2,7 @@
   export let data: any = [];
   export let extentY:number[] = []
   export let color:string = ''
-  import { line, curveStep, scaleLinear,  extent, scaleTime } from 'd3';
+  import { line, curveNatural, scaleLinear,  extent, scaleTime } from 'd3';
   
   var width = 300;
 	var height = 150;
@@ -28,7 +28,7 @@
 	let path = line()
 		.x((d:any) => xScale(d.ts))
     .y((d:any) => yScale(d['_value']))
-	  .curve(curveStep);  
+	  .curve(curveNatural);  
 
   // ticks for x axis - first day of each month found in the data
 	// Round to next Hour
@@ -71,7 +71,7 @@
 
   let xLabel = (x: Date) => {
     let h:string = `${x.getHours() < 10 ? '0' : ''}${x.getHours()}`;
-    let m:string = `${x.getMinutes() < 10 ? '0' : ''}${x.getMinutes()}`;
+    // let m:string = `${x.getMinutes() < 10 ? '0' : ''}${x.getMinutes()}`;
     // return `${h}:${m}`
     return `${h}h`
   }

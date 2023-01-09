@@ -1,4 +1,4 @@
-# Mobile Alerts - meine Sensoren
+# Mobile Alerts - Dashboard
 Dies ist ein einfaches Dashboard für Deine Mobile Alerts-Sensoren (verkauft unter den Marken Technoline, TFA, ELV oder Thermo Connect). Das Dashboard ersetzt nicht die App des Herstellers (und wird es auch in Zukunft nicht), sondern ergänzt die (lieblos gestaltete) App. Dieses Dashboard soll Dir eine schnelle Übersicht über Deine Sensoren bieten, optimiert für Smartphones. Du kannst es kostenlos nutzen oder einen eigenen Server betreiben.
 
 [» Zum Dashboard](https://mobilealerts.vercel.app/)

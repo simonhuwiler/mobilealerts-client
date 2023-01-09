@@ -20,8 +20,8 @@ Du brauchst Accounts bei zwei Diensten, beide sind kostenlos:
 * [GitHub](https://www.github.com)
 * [Vercel](https://vercel.com/) (Du kannst Deinen GitHub-Account nutzen)
 
-### 2. Project Forken
-Du musst eine Kopie des Source-Codes in Deinem Account erstellen. Klicke hier, wo Du gerade bist, oben rechts auf `Fork`. Klicke auf `Create fork`. Nun hast Du eine Kopie angelegt.
+### 2. Projekt forken
+Du musst eine Kopie des Source-Codes in Deinem Account erstellen. Klicke hier, wo Du gerade bist, oben rechts auf `Fork`. Klicke auf `Create fork`. Nun hast Du eine Kopie angelegt. Alternativ kannst Du das Repository über `+` und `Import repository` importieren. Gib dazu folgende URL an: `https://github.com/simonhuwiler/mobilealerts-client`
 
 ### 3. Deployen/Veröffentlichen
 * Erstelle auf Vercel ein neues Projekt (`Add New...` / `Project`).

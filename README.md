@@ -10,6 +10,8 @@ Dies ist ein einfaches Dashboard für Deine Mobile Alerts-Sensoren (verkauft unt
 
 Aktuell werden nur Temperatur- und Feuchtigkeitssensoren unterstützt. Deine Daten werden nicht gespeichert, alle Messwerte werden direkt vom Mobile Alerts-Server geholt. Die Seite speichert jedoch Deine Sensoren in Deinen Cookies, damit Du sie beim nächsten Aufruf nicht erneut eingeben musst.
 
+Suchst Du einen automatisierten Datenexport? Dann schaue Dir [dieses Projekt](https://github.com/simonhuwiler/mobile-alerts-datastore) an.
+
 ## Selber hosten
 Du kannst das Dashboard mit wenig Aufwand selbst hosten. Die Website braucht einen Api-Proxy, um die Anfragen weiterzuleiten. Wir nutzen Node. Mit folgender Anleitung kannst Du einfach und kostenlos Deinen eigenen Server starten. Möchtest Du es auf einem bestehenden Server ohne Node laufen lassen, dann schau Dir die Anleitung weiter unten (`Für Entwickler`) an.
 

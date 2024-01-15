@@ -104,6 +104,7 @@
 	}
 
 	const handleMouseLeave = () => {
+		console.log("leave")
 		tooltipActive = false
 		setCurrentValue(data[0])
 	}
@@ -130,6 +131,7 @@
 	viewBox={`0 0 ${width + margin.left + margin.right} ${height + margin.top + margin.bottom}`}
 	on:mousemove={handleMouseMove}
 	on:touchmove={handleMouseMove}
+	on:touchend={handleMouseLeave}
 	on:mouseleave={handleMouseLeave}
 >
 	<g>

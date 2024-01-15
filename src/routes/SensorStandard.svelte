@@ -56,9 +56,12 @@
 
 </script>
 
-<div class="chartstandard box" class:deleted={isDeleted}>
+<div
+  class="chartstandard box"
+  class:deleted={isDeleted}
+>
 
-   {#if isDeleteMode}
+  {#if isDeleteMode}
     <DeleteSymbol sensorID = {data.deviceid}/>
   {/if}
 
@@ -82,7 +85,7 @@
       extentY = {extentY}
       color = {color}
       setCurrentValue = {setCurrentValue}
-      />
+    />
   {/if}
     
 </div>

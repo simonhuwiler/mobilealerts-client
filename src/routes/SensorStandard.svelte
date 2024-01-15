@@ -11,9 +11,16 @@
   export let sensorName: string = ''
   export let color:string;
 
-  const timestampToDuration = (timestamp: number) => {
+  // Parse dates
+  data['measurements'].forEach((d:any) => {
+    d.ts = new Date(d.ts * 1000); // x
+	});
+
+  let currentValue:any = data['measurements'][0]
+
+  const timestampToDuration = (timestamp: Date) => {
     const now: Date = new Date();
-    const then: Date = new Date(timestamp * 1000)
+    const then: Date = timestamp;
     const minutes: number = Math.round((now.getTime() - then.getTime()) / 1000 / 60)
     const hours: number = Math.round(minutes / 60)
     const days: number = Math.round(minutes / 60 / 24)
@@ -24,6 +31,8 @@
     else if(days == 1) return 'einem Tag'
     else return `${days} Tagen`
   }
+
+  const setCurrentValue = (value:any) => currentValue = value
 
   // Calculate Extent for LineChart
   var extentY:number[];
@@ -59,11 +68,11 @@
   {/if}
 
   <div class='value'>
-    <div class='big' style:color={color}>{data.measurements[0]['_value']}</div>
+    <div class='big' style:color={color}>{currentValue['_value']}</div>
     <div class='right'>
       <div class='unit' style:color={color}>{sensor == SensorType.Temperature ? '°C' : '%'}</div>
       
-      <div class='timestamp'>vor {timestampToDuration(data.measurements[0].ts)}</div>
+      <div class='timestamp'>vor {timestampToDuration(currentValue['ts'])}</div>
     </div>
   </div>
 
@@ -72,6 +81,7 @@
       data={data.measurements}
       extentY = {extentY}
       color = {color}
+      setCurrentValue = {setCurrentValue}
       />
   {/if}
     

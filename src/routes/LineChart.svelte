@@ -2,18 +2,16 @@
   export let data: any = [];
   export let extentY:number[] = []
   export let color:string = ''
-  import { line, curveNatural, scaleLinear,  extent, scaleTime, pointer, bisector } from 'd3';
+	export let setCurrentValue:any = () => {}
+  import { line, curveNatural, scaleLinear,  extent, scaleTime, pointer } from 'd3';
   
   var width = 300;
 	var height = 150;
 	var margin = { top: 0, bottom: 10, left: 25, right: 0 };
-  let el
-  
-  // Parse dates
-  data.forEach((d:any) => {
-    d.ts = new Date(d.ts * 1000); // x
-	});
-  
+  let el:any;
+	var tooltipPoint = {x: 0, y: 0, value: "xx"}
+	var tooltipActive = false
+    
 	// scales
 	let extentX = extent(data, (d:any) => d.ts);
 	let xScale = scaleTime()
@@ -29,8 +27,6 @@
 		.x((d:any) => xScale(d.ts))
     .y((d:any) => yScale(d['_value']))
 	  .curve(curveNatural);  
-
-	var bisect = bisector((d) => d.ts).right;
 
   // ticks for x axis - first day of each month found in the data
 	// Round to next Hour
@@ -63,7 +59,6 @@
 		xTicksPosition = ['start', 'end']
 	}
 
-
   let yTicks:number[] = []
   for(let i:number = 0; i < 4; i++)
   {
@@ -76,21 +71,36 @@
     return `${h}h`
   }
 
-	const handleMouseOver = (event:any) => {
+	const handleMouseActive = (event:any) => {
 
 		const dt = xScale.invert(pointer(event, el)[0] - margin.left)
+		tooltipActive = true
 
+		// That could be done better...
 		var difference = Math.abs(data[0].ts - dt)
-		var dtFound = data[0].ts
+		var dataFound = data[0]
 		for(var d of data)
 		{
 			if(Math.abs(d.ts - dt) < difference)
 			{
 				difference = Math.abs(d.ts - dt)
-				dtFound = d
+				dataFound = d
 			}
 		}
-		console.log(difference, dtFound)
+
+		if(dataFound)
+		{
+			setCurrentValue(dataFound)
+			tooltipPoint.x = xScale(dataFound.ts)
+			tooltipPoint.y = yScale(dataFound._value)
+			tooltipPoint.value = `${dataFound.ts.getHours()}:${dataFound.ts.getMinutes() < 10 ? '0' : ''}${dataFound.ts.getMinutes()}`
+		}
+
+	}
+
+	const handleMouseLeave = () => {
+		tooltipActive = false
+		setCurrentValue(data[0])
 	}
 
 </script>
@@ -103,15 +113,19 @@
     left: 0;
 
 	}
+
 	.tick {
 		font-size: 11px;
 	}
+
 </style>
 
 <svg 
   bind:this={el}
 	viewBox={`0 0 ${width + margin.left + margin.right} ${height + margin.top + margin.bottom}`}
-	on:mousemove={handleMouseOver}
+	on:mousemove={handleMouseActive}
+	on:mousedown={handleMouseActive}
+	on:mouseleave={handleMouseLeave}
 >
 	<g>
 		<!-- line -->
@@ -136,7 +150,6 @@
  		{/each}
 	</g>
 	
-
 	<!-- Add Midnight-Line -->
 	<g transform="translate({margin.left}, {height})">
 		<g class="tick" opacity="1" transform="translate({xScale(tickMidnight)},0)">
@@ -145,15 +158,41 @@
 	</g>
 
 	<!-- x axis -->
-	<g transform="translate({margin.left}, {height})">
-		{#each xTicks as x, i} 
-			<g class="tick" opacity="1" transform="translate({xScale(x)},0)">
+	{#if !tooltipActive}
+		<g transform="translate({margin.left}, {height})">
+			{#each xTicks as x, i} 
+				<g class="tick" opacity="1" transform="translate({xScale(x)},0)">
+					<line stroke="grey" x=0 stroke-width=0.2 y1='-7' y2='-13' />
+					<text fill="currentColor" y="0" dy="0.71em" text-anchor={xTicksPosition[i]}>
+						{xLabel(x)}
+					</text>
+				</g>
+			{/each}
+		</g>
+	{/if}
+
+	{#if tooltipActive}
+		<!-- Tooltip Point-->
+		<g transform="translate({margin.left}, 0)">
+			<circle
+			  class="point"
+				cx={tooltipPoint.x}
+				cy={tooltipPoint.y}
+				r="4"
+				fill = {color} 
+			/>
+		</g>	
+
+		<!-- Tooltip Label -->
+		<g transform="translate({margin.left}, {height})">
+			<g class="tick" opacity="1" transform="translate({tooltipPoint.x},0)">
 				<line stroke="grey" x=0 stroke-width=0.2 y1='-7' y2='-13' />
-				<text fill="currentColor" y="0" dy="0.71em" text-anchor={xTicksPosition[i]}>
-					{xLabel(x)}
+				<text fill="currentColor" y="0" dy="0.71em" text-anchor="middle">
+					{tooltipPoint.value}
 				</text>
 			</g>
-		{/each}
+		</g>
+	{/if}
 
-	</g>
 </svg>
+

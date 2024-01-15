@@ -71,7 +71,12 @@
     return `${h}h`
   }
 
-	const handleMouseActive = (event:any) => {
+	const handleMouseMove = (event:any) => {
+		// Check if Touchevent. Quite dirty...
+		if("touches" in event)
+		{
+			event = event.touches[0]
+		}
 
 		const dt = xScale.invert(pointer(event, el)[0] - margin.left)
 		tooltipActive = true
@@ -123,8 +128,8 @@
 <svg 
   bind:this={el}
 	viewBox={`0 0 ${width + margin.left + margin.right} ${height + margin.top + margin.bottom}`}
-	on:mousemove={handleMouseActive}
-	on:mousedown={handleMouseActive}
+	on:mousemove={handleMouseMove}
+	on:touchmove={handleMouseMove}
 	on:mouseleave={handleMouseLeave}
 >
 	<g>

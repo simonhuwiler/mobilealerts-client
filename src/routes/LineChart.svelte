@@ -2,7 +2,7 @@
   export let data: any = [];
   export let extentY:number[] = []
   export let color:string = ''
-  import { line, curveNatural, scaleLinear,  extent, scaleTime } from 'd3';
+  import { line, curveNatural, scaleLinear,  extent, scaleTime, pointer, bisector } from 'd3';
   
   var width = 300;
 	var height = 150;
@@ -29,6 +29,8 @@
 		.x((d:any) => xScale(d.ts))
     .y((d:any) => yScale(d['_value']))
 	  .curve(curveNatural);  
+
+	var bisect = bisector((d) => d.ts).right;
 
   // ticks for x axis - first day of each month found in the data
 	// Round to next Hour
@@ -66,15 +68,30 @@
   for(let i:number = 0; i < 4; i++)
   {
     let x:number = ((extentY[1] - extentY[0]) / 4 * i) + extentY[0]
-    yTicks.push(Math.round( x * 10) / 10)
+    yTicks.push(Math.round(x * 10) / 10)
   }
 
   let xLabel = (x: Date) => {
     let h:string = `${x.getHours() < 10 ? '0' : ''}${x.getHours()}`;
-    // let m:string = `${x.getMinutes() < 10 ? '0' : ''}${x.getMinutes()}`;
-    // return `${h}:${m}`
     return `${h}h`
   }
+
+	const handleMouseOver = (event:any) => {
+
+		const dt = xScale.invert(pointer(event, el)[0] - margin.left)
+
+		var difference = Math.abs(data[0].ts - dt)
+		var dtFound = data[0].ts
+		for(var d of data)
+		{
+			if(Math.abs(d.ts - dt) < difference)
+			{
+				difference = Math.abs(d.ts - dt)
+				dtFound = d
+			}
+		}
+		console.log(difference, dtFound)
+	}
 
 </script>
 
@@ -91,7 +108,11 @@
 	}
 </style>
 
-<svg bind:this={el} viewBox={`0 0 ${width + margin.left + margin.right} ${height + margin.top + margin.bottom}`}>
+<svg 
+  bind:this={el}
+	viewBox={`0 0 ${width + margin.left + margin.right} ${height + margin.top + margin.bottom}`}
+	on:mousemove={handleMouseOver}
+>
 	<g>
 		<!-- line -->
 			<path 
